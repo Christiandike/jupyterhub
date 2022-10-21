@@ -35,23 +35,23 @@ By adding a scope to an existing role, all role bearers will gain the associated
 
 ## Metascopes
 
-Metascopes do not follow the general scope syntax. Instead, a metascope resolves to a set of scopes, which can refer to different resources, based on their owning entity. In JupyterHub, there are currently two metascopes:
+Metascopes do not follow the general scope syntax. Instead, a metascope resolves to a set of scopes, which can refer to different resources, based on the entity that owns them. In JupyterHub, there are currently two metascopes:
 
-1. default user scope `self`, and
-2. default token scope `inherit`.
+1. `self`: the default user scope, and
+2. `inherit`:  the default token scope.
 
 (default-user-scope-target)=
 
 ### Default user scope
 
-Access to the user's own resources and subresources is covered by metascope `self`. This metascope includes the user's model, activity, servers and tokens. For example, `self` for a user named "gerard" includes:
+The `self` metascope covers access to the user's own resources and subresources. This metascope includes the user's model, activity, servers and tokens. For example, `self` for a user named "gerard" includes:
 
 - `users!user=gerard` where the `users` scope provides access to the full user model and activity. The filter restricts this access to the user's own resources.
 - `servers!user=gerard` which grants the user access to their own servers without being able to create/delete any.
 - `tokens!user=gerard` which allows the user to access, request and delete their own tokens.
 - `access:servers!user=gerard` which allows the user to access their own servers via API or browser.
 
-The `self` scope is only valid for user entities. In other cases (e.g., for services) it resolves to an empty set of scopes.
+The `self` metascope is only valid for user entities. In other cases (e.g., for services) it resolves to an empty set of scopes.
 
 (default-token-scope-target)=
 
@@ -112,7 +112,7 @@ The payload of an API call can be filtered both horizontally and vertically simu
 
 ## Available scopes
 
-Table below lists all available scopes and illustrates their hierarchy. Indented scopes indicate subscopes of the scope(s) above them.
+The table below lists all available scopes and illustrates their hierarchy. Indented scopes indicate subscopes of the scope(s) above them.
 
 There are four exceptions to the general {ref}`scope conventions <scope-conventions-target>`:
 
@@ -189,7 +189,7 @@ Services that use JupyterHub for authentication and want to implement their own 
 % Note: keep in sync with pattern/description in jupyterhub/scopes.py
 
 Custom scope names must start with `custom:`
-and contain only lowercase ascii letters, numbers, hyphen, underscore, colon, and asterisk (`-_:*`).
+and contain only lowercase ASCII letters, numbers, hyphen, underscore, colon, and asterisk (`-_:*`).
 The part after `custom:` must start with a letter or number.
 Scopes may not end with a hyphen or colon.
 
